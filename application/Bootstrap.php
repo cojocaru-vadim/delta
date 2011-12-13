@@ -17,7 +17,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         if ($session->locale) {
             $locale = new Zend_Locale($session->locale);
-            //Zend_Debug::dump($locale);
+            //Zend_Debug::dump($locale); debuh
         }
         if ($locale === null) {
 //            try {
