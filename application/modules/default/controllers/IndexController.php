@@ -43,6 +43,7 @@ class IndexController extends Zend_Controller_Action
         $feedbaks = $q->fetchArray();
         $this->view->feedbacks = $feedbaks;
 
+
         //Moldova_Utils::generateXML();
         //Moldova_Utils::saveFeedback();
         //die;
