@@ -8,7 +8,7 @@
  * Time: 11:40 AM
  */
 
-class Administration_IndexController extends Zend_Controller_Action{
+class Administration_SettingsController extends Zend_Controller_Action{
 
     public function preDispatch()
     {

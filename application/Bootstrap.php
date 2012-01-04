@@ -49,25 +49,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Set the initial title and separator:
         $view->headTitle($this->view->translate('page-title'))->setSeparator(' - ');
 
-        // Set the initial stylesheet:
-        $view->headLink()->appendStylesheet('/css/styles.css');
-        $view->headLink()->appendStylesheet('/css/components.css');
-        $view->headLink()->appendStylesheet('/css/reset.css');
-        $view->headLink()->appendStylesheet('/css/slider.css');
-        //$view->headLink()->appendStylesheet('/css/tipsy.css');
-        //$view->headLink()->appendStylesheet('/css/forms.css');
-        //$view->headLink()->appendStylesheet('/css/nivo-slider.css');
+        $session = new Zend_Session_Namespace('admins');
+        if($session->role == Moldova_Auth_Roles::ADMIN){
+            $this->view->headLink()->appendStylesheet('/css/administration.css');
+        }else{
+            // Set the initial stylesheet:
+            $view->headLink()->appendStylesheet('/css/styles.css');
+            $view->headLink()->appendStylesheet('/css/components.css');
+            $view->headLink()->appendStylesheet('/css/reset.css');
+            $view->headLink()->appendStylesheet('/css/slider.css');
+            //$view->headLink()->appendStylesheet('/css/tipsy.css');
+            //$view->headLink()->appendStylesheet('/css/forms.css');
+            //$view->headLink()->appendStylesheet('/css/nivo-slider.css');
 
-        // Set the initial JS to load:
+            // Set the initial JS to load:
 
 
-        $view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js');
-        //$view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js');
-        //$view->headScript()->appendFile('/js/jquery.tipsy.js');
-        //$view->headScript()->appendFile('/js/jquery.nivo.slider.pack.js');
-        $view->headScript()->appendFile('/js/script.js');
-        $view->headScript()->appendFile('/js/jquery.slider.js');
-        //$view->headScript()->appendFile('http://www.openlayers.org/api/OpenLayers.js');
+            $view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js');
+            //$view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js');
+            //$view->headScript()->appendFile('/js/jquery.tipsy.js');
+            //$view->headScript()->appendFile('/js/jquery.nivo.slider.pack.js');
+            $view->headScript()->appendFile('/js/script.js');
+            $view->headScript()->appendFile('/js/jquery.slider.js');
+            //$view->headScript()->appendFile('http://www.openlayers.org/api/OpenLayers.js');
+        }
 
     }
 
@@ -82,7 +87,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $conn = Doctrine_Manager::connection($config['dsn'], 'doctrine');
         return $conn;
     }
-
 
 
     protected function _initSide()
@@ -293,6 +297,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
           $session = new Zend_Session_Namespace('admins');
 		  if($session->role == Moldova_Auth_Roles::ADMIN){
 
+              $this->view->headLink()->appendStylesheet('/css/administration.css');
+
               /***** Init left side menu *********/
                 $this->view->administrationMenu = array(
                     "Companies" => "/administration/companies",
@@ -304,6 +310,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 );
               /***** Init left side menu *********/
 
+              $this->view->nickname = $session->admin['nickname'];
           }
     }
 
